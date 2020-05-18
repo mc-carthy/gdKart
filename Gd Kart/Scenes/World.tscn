@@ -113,7 +113,6 @@ mesh = SubResource( 7 )
 material/0 = null
 
 [node name="Kart" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5.31152 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 0.783797, -0.567052, 0.253207, 0.00376637, 0.412063, 0.911148, -0.621006, -0.713201, 0.32511, 0, 1.42495, 0 )
