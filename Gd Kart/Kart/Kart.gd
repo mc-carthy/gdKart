@@ -39,7 +39,7 @@ func _process(delta: float) -> void:
 	wheelPivotFL.set_rotation(Vector3(0, current_steer_angle, 0))
 	wheelPivotFR.set_rotation(Vector3(0, current_steer_angle, 0))
 	
-	current_spin_rate = sphere.linear_velocity.z * delta * wheel_spin_rate
+	current_spin_rate = sphere.linear_velocity.length() * delta * wheel_spin_rate
 	wheelFL.rotate(Vector3.BACK, current_spin_rate)
 	wheelFR.rotate(Vector3.FORWARD, current_spin_rate)
 	wheelRL.rotate(Vector3.RIGHT, current_spin_rate)
