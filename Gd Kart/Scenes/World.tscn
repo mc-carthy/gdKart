@@ -30,7 +30,7 @@ size = Vector3( 4, 4, 4 )
 [node name="Floor" type="StaticBody" parent="."]
 
 [node name="CollisionShape" type="CollisionShape" parent="Floor"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.01, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0 )
 shape = SubResource( 1 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Floor"]
@@ -114,3 +114,7 @@ material/0 = null
 
 [node name="Kart" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5.31152 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 0.783797, -0.567052, 0.253207, 0.00376637, 0.412063, 0.911148, -0.621006, -0.713201, 0.32511, 0, 1.42495, 0 )
+shadow_enabled = true

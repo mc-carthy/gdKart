@@ -4,17 +4,43 @@ export var input_force: float = 50.0
 export var steering_speed: float = 1.0
 
 onready var mesh = $Mesh
+onready var wheelPivotFL: Spatial = $Mesh/WheelFL/Pivot
+onready var wheelPivotFR: Spatial = $Mesh/WheelFR/Pivot
+onready var wheelFL: MeshInstance = $Mesh/WheelFL/Pivot/WheelFL
+onready var wheelFR: MeshInstance = $Mesh/WheelFR/Pivot/WheelFR
+onready var wheelRL: MeshInstance = $Mesh/WheelRL
+onready var wheelRR: MeshInstance = $Mesh/WheelRR
 onready var sphere: RigidBody = $Sphere
+
+var longitudinal_input: float = 0
+var lateral_input: float = 0
+
+var max_steer_angle: float = 30.0
+var current_steer_angle: float = 0
+var target_steer_angle: float = 0
+var steering_lerp_weight: float = 0.1
+var wheel_spin_rate: float = 0.5
+var current_spin_rate: float = 0.0
 
 func _ready() -> void:
 	sphere.set_as_toplevel(true)
 
 func _process(delta: float) -> void:
-	pass
+	target_steer_angle = lateral_input * deg2rad(max_steer_angle)
+	current_steer_angle = lerp(current_steer_angle, target_steer_angle, steering_lerp_weight)
+	wheelPivotFL.set_rotation(Vector3(0, current_steer_angle, 0))
+	wheelPivotFR.set_rotation(Vector3(0, current_steer_angle, 0))
+	
+	current_spin_rate = sphere.linear_velocity.z * delta * wheel_spin_rate
+	
+	wheelFL.rotate(Vector3.BACK, current_spin_rate)
+	wheelFR.rotate(Vector3.FORWARD, current_spin_rate)
+	wheelRL.rotate(Vector3.RIGHT, current_spin_rate)
+	wheelRR.rotate(Vector3.RIGHT, current_spin_rate)
 
 func _physics_process(delta: float) -> void:
-	var longitudinal_input: float = 0
-	var lateral_input: float = 0
+	longitudinal_input = 0
+	lateral_input = 0
 	if Input.is_action_pressed('ui_left'):
 		lateral_input += 1
 	if Input.is_action_pressed('ui_right'):
