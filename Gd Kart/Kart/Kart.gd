@@ -12,6 +12,7 @@ onready var wheelFR: MeshInstance = $Mesh/WheelFR/Pivot/WheelFR
 onready var wheelRL: MeshInstance = $Mesh/WheelRL
 onready var wheelRR: MeshInstance = $Mesh/WheelRR
 onready var sphere: RigidBody = $Sphere
+onready var sphereCollision: CollisionShape = $Sphere/CollisionShape
 
 var longitudinal_input: float = 0
 var lateral_input: float = 0
@@ -63,6 +64,6 @@ func _physics_process(delta: float) -> void:
 	rotate(Vector3.UP, lateral_input * delta * steering_speed)
 	sphere.apply_impulse(Vector3.ZERO, longitudinal_input * get_global_transform().basis.z * input_force * delta)
 	#sphere.apply_central_impulse(Vector3.FORWARD * 10)
-	translation = sphere.translation
+	translation = sphere.translation - Vector3.UP * sphereCollision.shape.radius
 	
 	
